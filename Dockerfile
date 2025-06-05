@@ -1,14 +1,14 @@
 FROM python:3.11-slim
 
 # Install uv and set up environment
-RUN pip install --no-cache-dir uv
+RUN pip install --no-cache-dir uv argon2-cffi
 ENV PYTHONPATH=/app
 
-# Hash password on container start
+# Set up admin credentials
 ARG ADMIN_PASSWORD
-RUN python3 -c 'from argon2 import PasswordHasher; print(PasswordHasher().hash("${ADMIN_PASSWORD}"))' > /tmp/password_hash
-ENV ADMIN_PASSWORD_HASH=$(cat /tmp/password_hash)
-RUN rm /tmp/password_hash
+RUN python3 -c "from argon2 import PasswordHasher; import os; password_hash = PasswordHasher().hash(os.environ.get('ADMIN_PASSWORD', 'default')); print(f'ENV ADMIN_PASSWORD_HASH={password_hash}')" > /tmp/env && \
+    cat /tmp/env >> /etc/environment && \
+    rm /tmp/env
 
 WORKDIR /app
 
