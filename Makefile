@@ -10,4 +10,4 @@ dev:
 		uv run streamlit run bedrock.py)
 
 prod:
-	docker-compose up --build
+	docker-compose up --build -d
