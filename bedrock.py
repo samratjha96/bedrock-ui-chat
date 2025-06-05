@@ -1,6 +1,9 @@
 import streamlit as st
 import boto3
 from typing import Iterator, Dict, List, Optional
+import logging
+
+logger = logging.getLogger(__name__)
 from argon2 import PasswordHasher
 import os
 import time
@@ -11,7 +14,23 @@ from pathlib import Path
 from collections import defaultdict
 
 
+from botocore.exceptions import NoCredentialsError
+
+
 def get_bedrock_client():
+    # Try environment variables first
+    if all(os.environ.get(k) for k in ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]):
+        return boto3.client("bedrock-runtime", region_name="us-west-2")
+
+    try:
+        # Try getting a session with local credentials
+        session = boto3.Session()
+        if session.get_credentials():
+            return session.client("bedrock-runtime", region_name="us-west-2")
+    except:
+        pass
+
+    # Fall back to instance metadata service
     return boto3.client("bedrock-runtime", region_name="us-west-2")
 
 

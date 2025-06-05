@@ -1,7 +1,7 @@
 FROM python:3.11-slim
 
 # Install uv and set up environment
-RUN pip install --no-cache-dir uv argon2-cffi
+RUN pip install --no-cache-dir uv argon2-cffi boto3
 ENV PYTHONPATH=/app
 
 # Set up admin credentials
