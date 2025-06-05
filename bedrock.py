@@ -73,7 +73,7 @@ def get_response(
 
 # Thread management
 def get_threads_dir() -> Path:
-    threads_dir = Path.home() / ".bedrock-chat" / "threads"
+    threads_dir = Path(".bedrock-chat/threads")
     threads_dir.mkdir(parents=True, exist_ok=True)
     return threads_dir
 

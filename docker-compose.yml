@@ -3,6 +3,7 @@ services:
     build: .
     ports:
       - "8501:8501"
+    env_file: .env
     environment:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
@@ -10,8 +11,6 @@ services:
       - AWS_PROFILE
       - AWS_REGION
       - AWS_DEFAULT_REGION=us-east-1
-      - ADMIN_USERNAME
-      - ADMIN_PASSWORD_HASH
     volumes:
       - ./bedrock-chat:/root/.bedrock-chat
       - ~/.aws:/root/.aws:ro

@@ -4,6 +4,12 @@ FROM python:3.11-slim
 RUN pip install --no-cache-dir uv
 ENV PYTHONPATH=/app
 
+# Hash password on container start
+ARG ADMIN_PASSWORD
+RUN python3 -c 'from argon2 import PasswordHasher; print(PasswordHasher().hash("${ADMIN_PASSWORD}"))' > /tmp/password_hash
+ENV ADMIN_PASSWORD_HASH=$(cat /tmp/password_hash)
+RUN rm /tmp/password_hash
+
 WORKDIR /app
 
 # Copy requirements files and install dependencies
