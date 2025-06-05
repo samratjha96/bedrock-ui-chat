@@ -18,20 +18,14 @@ from botocore.exceptions import NoCredentialsError
 
 
 def get_bedrock_client():
+    region = os.environ.get("AWS_REGION", "us-west-2")
+
     # Try environment variables first
     if all(os.environ.get(k) for k in ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]):
-        return boto3.client("bedrock-runtime", region_name="us-west-2")
+        return boto3.client("bedrock-runtime", region_name=region)
 
-    try:
-        # Try getting a session with local credentials
-        session = boto3.Session()
-        if session.get_credentials():
-            return session.client("bedrock-runtime", region_name="us-west-2")
-    except:
-        pass
-
-    # Fall back to instance metadata service
-    return boto3.client("bedrock-runtime", region_name="us-west-2")
+    # Try getting a session with default credentials (will use instance profile on EC2)
+    return boto3.client("bedrock-runtime", region_name=region)
 
 
 AVAILABLE_MODELS = [

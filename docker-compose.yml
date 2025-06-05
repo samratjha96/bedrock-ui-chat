@@ -10,10 +10,8 @@ services:
     environment:
       - ADMIN_USERNAME
       - ADMIN_PASSWORD
-      - AWS_ACCESS_KEY_ID
-      - AWS_SECRET_ACCESS_KEY
-      - AWS_SESSION_TOKEN
+      - AWS_EC2_METADATA_DISABLED=false
+      - AWS_REGION=us-west-2
     volumes:
       - ./bedrock-chat:/root/.bedrock-chat
-      - ${HOME}/.aws:/root/.aws:ro
     network_mode: host
