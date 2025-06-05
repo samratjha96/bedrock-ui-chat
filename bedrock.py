@@ -119,9 +119,7 @@ def create_thread() -> str:
 
 # Security settings
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
-ADMIN_PASSWORD_HASH = os.getenv(
-    "ADMIN_PASSWORD_HASH", PasswordHasher().hash("change_me_immediately")
-)
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "change_me_immediately")
 
 # Rate limiting
 MAX_ATTEMPTS = 3
@@ -142,11 +140,7 @@ def is_rate_limited(username: str) -> tuple[bool, float]:
 
 
 def verify_password(password: str) -> bool:
-    try:
-        PasswordHasher().verify(ADMIN_PASSWORD_HASH, password)
-        return True
-    except:
-        return False
+    return password == ADMIN_PASSWORD
 
 
 # Streamlit UI

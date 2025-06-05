@@ -6,9 +6,7 @@ ENV PYTHONPATH=/app
 
 # Set up admin credentials
 ARG ADMIN_PASSWORD
-RUN python3 -c "from argon2 import PasswordHasher; import os; password_hash = PasswordHasher().hash(os.environ.get('ADMIN_PASSWORD', 'default')); print(f'ENV ADMIN_PASSWORD_HASH={password_hash}')" > /tmp/env && \
-    cat /tmp/env >> /etc/environment && \
-    rm /tmp/env
+ENV ADMIN_PASSWORD=${ADMIN_PASSWORD:-default}
 
 WORKDIR /app
 

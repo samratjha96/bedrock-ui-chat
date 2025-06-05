@@ -15,6 +15,7 @@ services:
       - AWS_REGION
       - AWS_DEFAULT_REGION=us-east-1
       - ADMIN_USERNAME
+      - ADMIN_PASSWORD
     volumes:
       - ./bedrock-chat:/root/.bedrock-chat
       - ~/.aws:/root/.aws:ro
