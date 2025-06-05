@@ -31,16 +31,12 @@ Your chat history will be saved in `~/.bedrock-chat/threads/`.
 
 ## Docker
 
-1. Build the image:
+Using docker-compose (recommended):
 ```bash
-docker build -t bedrock-chat .
+docker-compose up --build
 ```
 
-2. Run the container:
+The app will use your host's AWS credentials and configuration from `~/.aws`. You can override AWS settings using environment variables:
 ```bash
-docker run -p 8501:8501 \
-  -v ~/.bedrock-chat/threads:/root/.bedrock-chat/threads \
-  -e ADMIN_USERNAME=your_username \
-  -e ADMIN_PASSWORD_HASH="$(python3 -c 'from argon2 import PasswordHasher; print(PasswordHasher().hash("your_password"))')" \
-  bedrock-chat
+AWS_PROFILE=dev AWS_REGION=us-west-2 make prod
 ```
