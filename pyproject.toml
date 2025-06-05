@@ -1,0 +1,12 @@
+[project]
+name = "bedrock-ui-chat"
+version = "0.1.0"
+description = "Streamlit-based chat interface for Amazon Bedrock"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "streamlit",
+    "boto3",
+    "argon2-cffi",
+    "uuid",
+]
