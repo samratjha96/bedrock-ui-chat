@@ -11,8 +11,9 @@ A Streamlit-based chat interface for Amazon Bedrock's Claude models.
 ## Getting Started
 
 1. Install dependencies:
+
 ```bash
-uv pip install -r requirements.txt
+uv sync
 ```
 
 2. Configure authentication:
@@ -23,7 +24,7 @@ export ADMIN_PASSWORD_HASH="$(python3 -c 'from argon2 import PasswordHasher; pri
 
 3. Run the app:
 ```bash
-streamlit run hello.py
+uv run streamlit run bedrock.py
 ```
 
 Your chat history will be saved in `~/.bedrock-chat/threads/`.
