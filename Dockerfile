@@ -21,9 +21,6 @@ COPY . .
 RUN mkdir -p /root/.bedrock-chat/threads /root/.aws
 RUN echo "[default]\nregion = us-west-2\ncredential_source = Ec2InstanceMetadata" > /root/.aws/config
 
-# Volume for chat history
-VOLUME /root/.bedrock-chat/threads
-
 # Expose Streamlit port
 EXPOSE 8501
 
