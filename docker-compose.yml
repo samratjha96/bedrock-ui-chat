@@ -12,6 +12,7 @@ services:
       - ADMIN_PASSWORD
       - AWS_EC2_METADATA_DISABLED=false
       - AWS_REGION=us-west-2
+    restart: unless-stopped
     volumes:
       - ./bedrock-chat:/root/.bedrock-chat
     network_mode: host
